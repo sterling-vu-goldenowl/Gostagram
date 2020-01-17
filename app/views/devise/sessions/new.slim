@@ -1,3 +1,4 @@
+- provide(:title, 'Log in')
 .form-container
   .form-wrap
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
@@ -14,7 +15,9 @@
         .field
           = f.submit "Log in"
 
-        = render 'devise/shared/error_messages'
+        .field
+          .flash-alert
+            = flash[:alert]
 
         .gray-line-wrap
           .gray-line
@@ -24,6 +27,8 @@
 
         .forgot-pw-link
           = link_to "Forgot your password?", new_password_path(resource_name)
+          - if devise_mapping.confirmable? && controller_name != 'confirmations'
+            = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
 
   .form-wrap
     .signup-link

@@ -1,3 +1,5 @@
+- provide(:title, 'Sign up')
+
 .form-container
   .form-wrap
     = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
@@ -20,7 +22,8 @@
         .field
           = f.submit "Sign up"
 
-        = render "devise/shared/error_messages", resource: resource
+        .field
+          = render 'devise/shared/error_messages'
 
         .gray-line-wrap
           .gray-policy
@@ -36,4 +39,4 @@
   .form-wrap
     .signup-link
       p Have an account? &nbsp
-      = link_to ' Log in', new_session_path(resource_name)
+      = link_to ' Log in', sign_in_path

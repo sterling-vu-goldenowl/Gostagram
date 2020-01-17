@@ -1,13 +1,35 @@
-h2 Resend confirmation instructions
+- provide(:title, 'Resend confirmation instructions')
 
-= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-  = render "devise/shared/error_messages", resource: resource
+.form-container
+  .form-wrap
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
 
-  .field
-    = f.label :email
-    br/
-    = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+      .lock-icon
+        = image_tag 'lock.svg'
+        b Trouble confirming?
+        p Enter your email and we'll send you a link to confirm your account.
 
-  .actions
-    = f.submit "Resend confirmation instructions"
-= render "devise/shared/links"
+      .field-wrap
+        .field
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: " Email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+
+        .field
+          = f.submit "Resend confirmation instructions"
+
+        .field
+          = render 'devise/shared/error_messages'
+
+        .gray-line-wrap
+          .gray-line
+          .gray-text
+            b OR
+          .gray-line
+
+        - if devise_mapping.confirmable? && controller_name != 'confirmations'
+          = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+
+    .back-to-login
+      - if user_signed_in?
+        = link_to 'Back', :back
+      - else
+        = link_to 'Back To Login', sign_in_path

@@ -1,1 +1,6 @@
-= render 'layouts/header'
+.container
+  - flash.each do |message_type, message|
+    - if message_type == 'notice'
+      .alert.alert-success= message
+    - else
+      div class=("alert alert-#{message_type}") = message

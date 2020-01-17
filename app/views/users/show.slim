@@ -1,0 +1,7 @@
+- provide(:title, "#{@user.username} Profile")
+.container
+  .row
+    .col-md-12
+      = avatar_for(@user)
+      = @user.username
+      = link_to 'Edit Profile', edit_user_path(@user)

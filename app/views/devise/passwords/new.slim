@@ -1,4 +1,4 @@
-= render 'layouts/header'
+- provide(:title, 'Forget Password?')
 
 .form-container
   .form-wrap
@@ -16,6 +16,9 @@
         .field
           = f.submit "Send Login Link"
 
+        .field
+          = render 'devise/shared/error_messages'
+
         .gray-line-wrap
           .gray-line
           .gray-text
@@ -23,7 +26,7 @@
           .gray-line
 
         .create-acc-link
-          = link_to 'Create New Account', new_registration_path(resource_name)
+          = link_to 'Create New Account', new_user_registration_path
 
     .back-to-login
-      = link_to 'Back To Login', new_session_path(resource_name)
+      = link_to 'Back To Login', sign_in_path
