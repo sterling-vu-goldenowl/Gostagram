@@ -2,7 +2,7 @@
 
 .form-container
   .form-wrap
-    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
       = render "devise/shared/error_messages", resource: resource
       .lock-icon
         = image_tag 'lock.svg'

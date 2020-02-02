@@ -6,15 +6,15 @@ header
           .row
             .col-md-3.col-md-offset-1.col-xs-6
               .left-header
-                .ins-icon.align-middle
+                .ins-icon
                   = link_to root_path do
                     = image_tag "ins-icon.png"
                 .header-line
-                .ins-logo.align-middle
+                .ins-logo
                   = link_to root_path do
                     = image_tag "instagram_logo.svg.png"
             .col-md-7.col-xs-6
-              .right-header.align-middle
+              .right-header
                 - if user_signed_in?
                   .dropdown
                     img.dropdown-toggle data-toggle="dropdown" src="/assets/user-icon.png" /
