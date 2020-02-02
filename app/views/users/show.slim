@@ -1,7 +1,18 @@
 - provide(:title, "#{@user.username} Profile")
 .container
   .row
-    .col-md-12
-      = avatar_for(@user)
-      = @user.username
-      = link_to 'Edit Profile', edit_user_path(@user)
+    .col-md-10.col-md-offset-1
+      .row
+        .col-md-12
+          .profile-wrap
+            .col-md-4.col-xs-6
+              .avatar-wrap
+                = avatar_for(@user)
+            .col-md-8.col-xs-6
+              .user-info-wrap
+                .user-info
+                  p= @user.username
+                  .edit-button
+                    = link_to 'Edit Profile', edit_user_path(@user)
+                    = link_to edit_user_path(@user) do
+                      = image_tag "gear.png", class: "gear-img"

@@ -21,13 +21,10 @@
           = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: " Password confirmation"
 
         .field
-          = f.submit "Change my password"
+          = f.submit "Change my password", class:
 
         .field
           = render "devise/shared/error_messages", resource: resource
 
         .field
           = render 'devise/shared/error_messages'
-
-  .back-to-login
-    = link_to 'Back', :back
