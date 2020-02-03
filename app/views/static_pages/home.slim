@@ -1,8 +1,13 @@
 .container
   .row
-    .col-md-10.col-md-offset-1
-      - flash.each do |message_type, message|
-        - if message_type == 'notice'
-          .alert.alert-success= message
-        - else
-          div class=("alert alert-#{message_type}") = message
+    .col-md-12
+      .col-md-10.col-md-offset-1.no-padding
+        - flash.each do |message_type, message|
+          - if message_type == 'notice'
+            .alert.alert-success= message
+          - else
+            div class=("alert alert-#{message_type}") = message
+      .col-md-10.col-md-offset-1.no-padding
+        .feed-wrap
+          - if current_user.microposts.any?
+            = render 'devise/shared/feed'

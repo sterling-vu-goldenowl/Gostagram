@@ -1,0 +1,24 @@
+- provide(:title, "New Post")
+
+.container
+  .row
+    .col-md-10.col-md-offset-1.col-xs-12
+      .edit-form-wrap
+        .row
+          .col-md-12.micropost-form
+            = simple_form_for(@micropost) do |f|
+              .col-md-12.row-wrap
+                .col-md-3.no-padding.form-label
+                  div= f.label :content
+                .col-md-8.form-field
+                  .field
+                    = f.text_area :content, placeholder: "Compose new micropost..."
+              .col-md-12.row-wrap
+                .col-md-3.no-padding.form-label
+                  div= f.label :picture
+                .col-md-8.form-field
+                  .field
+                    = f.file_field :picture
+              .col-md-12
+                .col-md-8.col-md-offset-3.form-field
+                  = f.submit "Post"

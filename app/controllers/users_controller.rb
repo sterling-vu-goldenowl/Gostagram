@@ -4,10 +4,12 @@ class UsersController < ApplicationController
   include ApplicationHelper
 
   before_action :set_user, only: %i[show edit update correct_user]
-  before_action :authenticate_user!, only: :update
+  before_action :authenticate_user!, only: %i[show edit update]
   before_action :valid_user?, only: %i[edit update]
 
-  def show; end
+  def show
+    @microposts = @user.microposts
+  end
 
   def edit; end
 

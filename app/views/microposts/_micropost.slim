@@ -1,0 +1,12 @@
+.main-form
+  .micropost-user-avatar
+    = avatar_for(micropost.user)
+    = link_to micropost.user.username, micropost.user
+  .micropost-picture-wrap
+    = image_tag micropost.picture.url
+  .micropost-content
+    = micropost.user.username
+    p= micropost.content
+  .micropost-time
+    = time_ago_in_words(micropost.created_at)
+    |  ago.
