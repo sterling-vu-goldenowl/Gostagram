@@ -1,2 +1,2 @@
 - if @feed_items.any?
-  = render @feed_items
+  = render @feed_items.order(created_at: :desc)

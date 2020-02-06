@@ -1,59 +1,82 @@
 - provide(:title, "Edit #{@user.username} Profile")
-
 .container
   .row
-    .col-md-10.col-md-offset-1.col-xs-12
+    .col-md-10.col-md-offset-1
       #editform.edit-form-wrap
         .row
-          .col-md-12
-            .col-md-3.no-padding
-              #edit-left-menu
-                .edit-tab.active
-                  = link_to 'Edit Profile', edit_user_path(@user)
-                .edit-tab
-                  = link_to 'Change Password', edit_user_path(@user)
-            .col-md-9.edit-form
-              .row
-                = simple_form_for(@user) do |f|
-                  .col-md-12
-                    .col-md-3.no-padding.form-label
-                      .edit-avatar
-                        = avatar_for(@user)
-                    .col-md-8.form-field
-                      div= @user.username
-                      = link_to 'Change Profile Photo'
-                  .col-md-12
-                    .col-md-3.no-padding.form-label
-                      div= f.label :username
-                    .col-md-8.form-field
-                      .field
-                        = f.text_field :username
-                  .col-md-12
-                    .col-md-3.no-padding.form-label
-                      div= f.label :email
-                    .col-md-8.form-field
-                      .field
-                        = f.text_field :email
-                  .col-md-12
-                    .col-md-3.no-padding.form-label
-                      div= f.label :password
-                    .col-md-8.form-field
-                      .field
-                        = f.password_field :password
-                  .col-md-12
-                    .col-md-3.no-padding.form-label
-                      div= f.label :password_confirmation
-                    .col-md-8.form-field
-                      .field
-                        = f.password_field :password_confirmation
-                  .col-md-12
-                    .col-md-8.col-md-offset-3.form-field
-                      = f.submit "Submit"
+          .col-md-3.col-xs-12
+            ul#edit-left-menu
+              li.edit-tab.active
+                = link_to 'Edit Profile', '#', data: { edit: 'edit-profile' }
+              li.edit-tab
+                = link_to 'Change Password', '#', data: { edit: 'edit-password' }
+          .col-md-9.col-xs-12.no-padding-left
+            .edit-form.edit-profile
+              = simple_form_for(@user) do |f|
+                .row
+                  .col-md-4.col-xs-6.form-label
+                    .edit-avatar
+                      = avatar_for(@user)
+                  .col-md-7.col-xs-6.form-field
+                    div= @user.username
+                    = f.file_field :avatar, accept: 'image/jpeg, image/gif, image/png', class: "inputfile"
+                .row
+                  .col-md-4.col-xs-12.form-label
+                    div= f.label :username
+                  .col-md-7.col-xs-12.form-field
+                    .field
+                      = f.text_field :username
+                .row
+                  .col-md-4.col-xs-12.form-label
+                    div= f.label :email
+                  .col-md-7.col-xs-12.form-field
+                    .field
+                      = f.text_field :email
+                .row
+                  .col-md-12.col-xs-12
+                    - if @user.errors.any?
+                      #error_explanation
+                        ul
+                          - @user.errors.full_messages.each do |message|
+                            li= message
+                .row
+                  .col-md-8.col-md-offset-4.col-xs-12.form-field
+                    = f.submit "Submit"
 
+            .edit-form.edit-password
+              = simple_form_for(@user) do |f|
+                .row
+                  .col-md-4.col-xs-12.form-label
+                    div= f.label :current_password
+                  .col-md-7.col-xs-12.form-field
+                    .field
+                      = f.password_field :current_password
+                .row
+                  .col-md-4.col-xs-12.form-label
+                    div= f.label :password
+                  .col-md-7.col-xs-12.form-field
+                    .field
+                      = f.password_field :password
+                .row
+                  .col-md-4.col-xs-12.form-label
+                    div= f.label :password_confirmation
+                  .col-md-7.col-xs-12.form-field
+                    .field
+                      = f.password_field :password_confirmation
+                .row
+                  .col-md-12.col-xs-12
+                    - if @user.errors.any?
+                      #error_explanation
+                        ul
+                          - @user.errors.full_messages.each do |message|
+                            li= message
+                .row
+                  .col-md-8.col-md-offset-4.col-xs-12.form-field
+                    = f.submit "Submit"
 javascript:
-  | $('#editform').bind('change', function() {
-    | var size_in_megabytes = this.files[0].size/1024/1024;
-    | if (size_in_megabytes > 5) {
-      | alert('Maximum file size is 5MB. Please choose a smaller file.');
-    | }
-  | });
+  $('#editform').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });

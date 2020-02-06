@@ -39,6 +39,7 @@ gem 'bcrypt',                  '~> 3.1.12'
 gem 'carrierwave',             '~> 1.2.2'
 gem 'faker',                   '~> 1.7.3'
 gem 'mini_magick',             '~> 4.7.0'
+gem 'rmagick'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -71,9 +72,9 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
-  gem 'shoulda-matchers'
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -82,3 +83,4 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'slim'
 
 gem 'devise'
+gem 'nested_form'

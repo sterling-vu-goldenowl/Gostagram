@@ -1,0 +1,18 @@
+- provide(:title, 'Micropost')
+
+.container
+  .row
+    .col-md-10.col-md-offset-1
+      .main-form
+        .micropost-user-avatar
+          = avatar_for(@micropost.user)
+          = link_to @micropost.user.username, @micropost.user
+        .micropost-picture-wrap
+          - @post_photos.each do |f|
+            = image_tag  f.photo.url
+        .micropost-content
+          = @micropost.user.username
+          p= @micropost.content
+        .micropost-time
+          = time_ago_in_words(@micropost.created_at)
+          |  ago.

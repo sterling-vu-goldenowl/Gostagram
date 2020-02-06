@@ -1,7 +1,13 @@
+# frozen_string_literal: true
+
 class Micropost < ApplicationRecord
   belongs_to :user
-  default_scope -> { order(created_at: :desc) }
-  mount_uploader :picture, PictureUploader
+  has_many :post_photos, dependent: :destroy
+  accepts_nested_attributes_for :post_photos,
+                                reject_if: proc { |attributes| attributes['photo'].blank? },
+                                allow_destroy: true
+
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
+  validates :post_photos, presence: true
 end

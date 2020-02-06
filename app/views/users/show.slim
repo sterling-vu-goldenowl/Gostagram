@@ -2,43 +2,52 @@
 .container
   .row
     .col-md-10.col-md-offset-1
-      .row
-        .col-md-12
-          .profile-wrap
-            .col-md-4.col-xs-6
-              .avatar-wrap
-                = avatar_for(@user)
-            .col-md-8.col-xs-6
-              .user-info-wrap
-                .user-info
-                  p= @user.username
+      .profile-wrap
+        .row
+          .col-md-4.col-xs-6
+            .avatar-wrap
+              = avatar_for(@user)
+          .col-md-8.col-xs-6
+            .user-info-wrap
+              .user-info
+                p= @user.username
+                - if @user == current_user
                   .edit-button
                     = link_to 'Edit Profile', edit_user_path(@user)
                     = link_to edit_user_path(@user) do
                       = image_tag "gear.png", class: "gear-img"
-                .user-count
-                  .user-post-count
-                    .count-number= @user.microposts.count
-                    - if @user.microposts.count > 1
-                      | posts
-                    - else
-                      | post
-                  .user-followers
-                    | followers
-                  .user-following
-                    | following
-        .col-md-12
-          - if @microposts.any?
-            .post-wrap
-              .post-navbar
-                .post-tab
-                  = image_tag  "post-icon.png"
-                  p.no-margin POSTS
+                - else
+                  .follow-button
+                    = render 'users/follow_form' if user_signed_in?
+              .user-count
+                .user-post-count
+                  .count-number= @user.microposts.count
+                  - if @user.microposts.count > 1
+                    | posts
+                  - else
+                    | post
+                .user-followers
+                  .count-number= @user.followers.count
+                  - if @user.followers.count > 1
+                    = link_to  "followers", followers_user_path(@user)
+                  - else
+                    = link_to  "follower", followers_user_path(@user)
+                .user-following
+                  .count-number= @user.following.count
+                  = link_to  "following", following_user_path(@user)
 
-                = link_to new_micropost_path(@user) do
+          .post-wrap.col-md-12
+            .post-navbar
+              .post-tab
+                = image_tag  "post-icon.png"
+                p.no-margin POSTS
+
+              - if current_user?(@user)
+                = link_to new_micropost_path do
                   .post-tab
                     = image_tag  "plus.png"
                     p.no-margin NEW
-              .user-microposts
-                - @microposts.each do |post|
-                  = image_tag post.picture.url
+          / - if @microposts.any?
+          /   .user-microposts
+          /     - @microposts.order(created_at: :desc).each do |post|
+          /       = image_tag post.picture.url

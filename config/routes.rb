@@ -12,6 +12,12 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :users,      only: %i[show edit update]
-  resources :microposts, only: %i[new create destroy]
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :users,         only: %i[show edit update]
+  resources :microposts,    only: %i[new create destroy show edit update]
+  resources :relationships, only: %i[create destroy]
 end
