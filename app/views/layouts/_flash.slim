@@ -1,0 +1,10 @@
+.container
+  .row
+    .col-md-10.col-md-offset-1
+      - flash.each do |message_type, message|
+        - if message_type == 'notice'
+          .alert.alert-success= message
+        - elsif message_type == 'alert'
+          .alert.alert-danger= message
+        - else
+          div class=("alert alert-#{message_type}") = message

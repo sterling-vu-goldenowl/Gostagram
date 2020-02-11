@@ -9,6 +9,19 @@ document.addEventListener('turbolinks:load', function(event) {
     }
   });
 
+  $(".owl-demo").owlCarousel({
+
+    navigation : true, // Show next and prev buttons
+    slideSpeed : 300,
+    paginationSpeed : 400,
+    items : 1,
+    itemsDesktop : false,
+    itemsDesktopSmall : false,
+    itemsTablet: false,
+    itemsMobile : false
+
+  });
+
   $('#edit-left-menu .edit-tab a').on('click', function(e) {
     e.preventDefault();
     $('.edit-form').hide();

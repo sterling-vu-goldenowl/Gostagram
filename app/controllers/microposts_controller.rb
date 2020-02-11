@@ -17,56 +17,42 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
 
-    # respond_to do |format|
-    #   if @micropost.save
-    #     params[:post_photos]['photo'].each do |a|
-    #       @post_photo = @micropost.post_photos.create!(photo: a)
-    #     end
-    #     format.html do
-    #       redirect_to @micropost,
-    #                   notice: 'Micropost was successfully created!'
-    #     end
-    #   else
-    #     format.html { render :new }
-    #   end
-    # end
-
     if @micropost.save
-      # params[:post_photos]['photo'].each do |a|
-      #   @post_photo = @micropost.post_photos.create!(photo: a)
-      # end
       redirect_to @micropost
     else
-      flash[:danger] = @micropost.errors.full_messages
-      redirect_to action: :new
+      @post_photo = @micropost.post_photos.build
+      flash[:danger] = "Content and photo can't be blank and photo size must < 5MB"
+      render :new
     end
   end
 
-  def edit; end
+  # def edit; end
 
-  def update
-    @micropost.assign_attributes(micropost_params)
-    if @micropost.save
-      params[:post_photos]['photo'].each do |a|
-        @post_photo = @micropost.post_photos.create!(photo: a)
-      end
-      redirect_to @micropost,
-                  notice: 'Micropost was successfully updated!'
-    else
-      flash[:danger] = @micropost.errors.full_messages
-      redirect_to action: :edit
-    end
-  end
+  # def update
+  #   @micropost.assign_attributes(micropost_params)
 
-  def destroy
-    @micropost.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to user_path(current_user),
-                    notice: 'Your post was successfully deleted!'
-      end
-    end
-  end
+  #   if @micropost.save
+  #     params[:post_photos]['photo'].each do |a|
+  #       @post_photo = @micropost.post_photos.create!(photo: a)
+  #     end
+  #     redirect_to @micropost,
+  #                 notice: 'Micropost was successfully updated!'
+  #   else
+  #     flash[:danger] = @micropost.errors.full_messages
+  #     redirect_to action: :edit
+  #   end
+  # end
+
+  # def destroy
+  #   @micropost.destroy
+
+  #   respond_to do |format|
+  #     format.html do
+  #       redirect_to user_path(current_user),
+  #                   notice: 'Your post was successfully deleted!'
+  #     end
+  #   end
+  # end
 
   private
 

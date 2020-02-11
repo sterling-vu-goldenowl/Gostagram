@@ -19,6 +19,8 @@
 
 //= require jquery_nested_form
 
+//= require owl.carousel
+
 //= require custom_js
 
 //= require_tree .

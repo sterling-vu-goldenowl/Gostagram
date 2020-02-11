@@ -1,36 +1,27 @@
 - provide(:title, @title)
-.container
-  .row
-    .col-md-10.col-md-offset-1.col-xs-12
-      .main-form.padding-bottom
-        .row
-          .col-md-12.col-xs-12
-          - if @users.any?
-            .follow-title
-              = @title
-            - @users.each do |user|
-              .row
-                .col-md-1.col-md-offset-1
-                  .follow-avatar
-                    = avatar_for(user)
-                .col-md-7
-                  .follow-username
-                    div= user.username
-                .col-md-3
-                  - unless current_user?(user)
-                    #follow_form
-                      - if current_user.following?(user)
-                        = form_for(current_user.active_relationships.find_by(followed_id: user.id), html: { method: :delete }, remote: true) do |f|
-                          .btn-unfollow
-                            = f.submit "Unfollow"
-                      - else
-                        = form_for(current_user.active_relationships.build, remote: true) do |f|
-                          div
-                            = hidden_field_tag :followed_id, user.id
-                          = f.submit "Follow"
-
-                  / = render 'users/follow_form'
-          - else
-            .follow-title
-              | You don't have any &nbsp
-              = @title
+.main-container
+  .container
+    .row
+      .col-md-10.col-md-offset-1.col-xs-12
+        .main-form.padding-bottom
+          .row
+            .col-md-12.col-xs-12
+            - if @users.any?
+              .follow-title
+                = @title
+              - @users.each do |user|
+                .row.user-follow-wrap
+                  .col-md-1.col-md-offset-1
+                    .follow-avatar
+                      = avatar_for(user)
+                  .col-md-7
+                    .follow-username
+                      = link_to user.username, user_path(user)
+                  .col-md-3
+                    - unless current_user?(user)
+                      div[id="follow_form-#{user.id}"]
+                        = render partial: 'follow_form', locals: { user: user }
+            - else
+              .follow-title
+                | No &nbsp
+                = @title

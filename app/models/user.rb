@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :microposts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent: :destroy
@@ -17,7 +18,9 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, PictureUploader
 
-  validates :username, presence: true
+  validates :name, presence: true
+  validates :username, presence: true,
+                       format: { without: /\s/, message: 'must contain no spaces' }
   validates :email, presence: true
   validate  :avatar_size
 

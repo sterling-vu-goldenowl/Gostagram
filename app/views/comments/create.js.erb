@@ -1,0 +1,4 @@
+$("<%= escape_javascript display_comment(@micropost, @comment) %>").appendTo("#micropost_comment_<%= @micropost.id %>")
+$("#comment_body_<%= @micropost.id %>").val("")
+
+$("<%= escape_javascript display_comment_with_avatar(@comment) %>").appendTo("#micropost_show_comment_<%= @micropost.id %>")

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   include ApplicationHelper
 
   before_action :set_user, only: %i[show edit update correct_user following followers valid_user?]
-  before_action :authenticate_user!, only: %i[show edit update following followers]
+  before_action :user_signed_in?, only: %i[edit update following followers]
   before_action :valid_user?, only: %i[edit update]
   before_action :check_current_password, only: :update
 
@@ -19,7 +19,11 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to @user, notice: 'Profile updated'
     else
-      render :edit
+      check_error_type
+      respond_to do |format|
+        format.html { render :edit }
+        format.js { render layout: false }
+      end
     end
   end
 
@@ -40,19 +44,29 @@ class UsersController < ApplicationController
   def check_current_password
     current_password = params.dig(:user, :current_password)
     if current_password && !current_user.valid_password?(current_password)
-      flash[:danger] = 'Current password does not correct.'
-      render :edit
+      @error_password = true
     end
   end
 
   def user_params
     params.require(:user).permit(
       :email,
+      :name,
+      :bio,
       :username,
       :avatar,
       :password,
       :password_confirmation
     )
+  end
+
+  def check_error_type
+    errors = @user.errors.full_messages
+    errors.each do |error|
+      if error.include?('password')
+        @error_password = true
+      end
+    end
   end
 
   def valid_user?

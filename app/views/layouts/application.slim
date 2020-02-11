@@ -8,16 +8,9 @@ html
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    script[src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js" data-turbolinks-track="reload"]
+    link[rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"]
   body
     = render 'layouts/header'
-    .container
-      .row
-        .col-md-10.col-md-offset-1
-          - flash.each do |message_type, message|
-            - if message_type == 'notice'
-              .alert.alert-success= message
-            - elsif message_type == 'alert'
-              .alert.alert-danger= message
-            - else
-              div class=("alert alert-#{message_type}") = message
+    = render 'layouts/flash'
     = yield

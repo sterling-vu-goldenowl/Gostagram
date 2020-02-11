@@ -1,53 +1,74 @@
 - provide(:title, "#{@user.username} Profile")
-.container
-  .row
-    .col-md-10.col-md-offset-1
-      .profile-wrap
-        .row
-          .col-md-4.col-xs-6
-            .avatar-wrap
-              = avatar_for(@user)
-          .col-md-8.col-xs-6
-            .user-info-wrap
-              .user-info
-                p= @user.username
-                - if @user == current_user
-                  .edit-button
-                    = link_to 'Edit Profile', edit_user_path(@user)
-                    = link_to edit_user_path(@user) do
-                      = image_tag "gear.png", class: "gear-img"
-                - else
-                  .follow-button
-                    = render 'users/follow_form' if user_signed_in?
-              .user-count
-                .user-post-count
-                  .count-number= @user.microposts.count
-                  - if @user.microposts.count > 1
-                    | posts
+.main-container
+  .container
+    .row
+      .col-md-10.col-md-offset-1
+        .profile-wrap
+          .row
+            .col-md-4.col-xs-6
+              .avatar-wrap
+                = avatar_for(@user)
+            .col-md-8.col-xs-6
+              .user-info-wrap
+                .user-info
+                  p = @user.username
+                  - if @user == current_user
+                    .edit-button
+                      = link_to 'Edit Profile', edit_user_path(@user)
                   - else
-                    | post
-                .user-followers
-                  .count-number= @user.followers.count
-                  - if @user.followers.count > 1
-                    = link_to  "followers", followers_user_path(@user)
-                  - else
-                    = link_to  "follower", followers_user_path(@user)
-                .user-following
-                  .count-number= @user.following.count
-                  = link_to  "following", following_user_path(@user)
+                    div[id="follow_form-#{@user.id}" class="follow-button"]
+                      = render partial: 'follow_form', locals: { user: @user } if user_signed_in?
+                .user-count
+                  .user-post-count
+                    .count-number = @user.microposts.count
+                    - if @user.microposts.count > 1
+                      | posts
+                    - else
+                      | post
+                  .user-followers
+                    .count-number = @user.followers.count
+                    - if @user.followers.count > 1
+                      = link_to  "followers", followers_user_path(@user)
+                    - else
+                      = link_to  "follower", followers_user_path(@user)
+                  .user-following
+                    .count-number = @user.following.count
+                    = link_to  "following", following_user_path(@user)
+                .user-decription
+                  .user-name = @user.name
+                  .user-bio
+                    pre = @user.bio
 
-          .post-wrap.col-md-12
-            .post-navbar
-              .post-tab
-                = image_tag  "post-icon.png"
-                p.no-margin POSTS
-
-              - if current_user?(@user)
-                = link_to new_micropost_path do
+            .col-md-12
+              .post-wrap
+                .post-navbar
                   .post-tab
-                    = image_tag  "plus.png"
-                    p.no-margin NEW
-          / - if @microposts.any?
-          /   .user-microposts
-          /     - @microposts.order(created_at: :desc).each do |post|
-          /       = image_tag post.picture.url
+                    = image_tag  "post-icon.png"
+                    p.no-margin POSTS
+
+                  - if current_user?(@user)
+                    = link_to new_micropost_path do
+                      .post-tab
+                        = image_tag  "plus.png"
+                        p.no-margin NEW
+              - if @microposts.any?
+                .user-micropost-wrap
+                  - @microposts.order(created_at: :desc).in_groups_of(3, false) do |micropost|
+                    .user-microposts
+                      - micropost.each_with_index do |post, index|
+                        - if (index + 1) % 2 == 0
+                          .micropost-photo
+                            = link_to micropost_path(post.id) do
+                              .padding-left-right = image_tag post.post_photos.first.photo.url
+                        - elsif (index + 1) % 3 == 0
+                          .micropost-photo
+                            = link_to micropost_path(post.id) do
+                              .padding-left-16 = image_tag post.post_photos.first.photo.url
+                        - else
+                          .micropost-photo
+                            = link_to micropost_path(post.id) do
+                              .padding-right-16 = image_tag post.post_photos.first.photo.url
+              - else
+                .no-post-yet
+                  = image_tag 'no-post.png'
+                  p No Posts Yet

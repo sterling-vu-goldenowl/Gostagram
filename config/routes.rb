@@ -17,7 +17,9 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  resources :users,         only: %i[show edit update]
-  resources :microposts,    only: %i[new create destroy show edit update]
+  resources :users, only: %i[show edit update]
+  resources :microposts do
+    resources :comments, only: %i[new create]
+  end
   resources :relationships, only: %i[create destroy]
 end

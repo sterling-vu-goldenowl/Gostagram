@@ -8,5 +8,7 @@ class PostPhoto < ApplicationRecord
 end
 
 def photo_size_validation
-  errors[:photo] << 'Photo should be less than 5MB' if photo.size > 5.megabytes
+  return if photo.size <= 5.megabytes
+
+  errors.add(:photo, 'should be less than 5MB')
 end
