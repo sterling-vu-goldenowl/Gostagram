@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt',                  '~> 3.1.12'
 gem 'carrierwave',             '~> 1.2.2'
 gem 'faker',                   '~> 1.7.3'
-gem 'mini_magick',             '~> 4.7.0'
+gem 'mini_magick',             '~> 4.9.4'
 gem 'owlcarousel-rails'
 gem 'rmagick'
 # Use ActiveStorage variant
