@@ -1,0 +1,14 @@
+- if micropost.likes.any?
+  - if micropost.likes.count < 2
+    | 1 like
+  - else
+    p Liked by
+    .liked-user-name
+      = like.user.username.last
+    p and
+    .liked-count
+      = micropost.likes.count - 1
+      - if micropost.likes.count - 1 > 1
+        | others
+      - else
+        | other

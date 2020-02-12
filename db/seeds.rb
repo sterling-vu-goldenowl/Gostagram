@@ -7,22 +7,31 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create!(username: 'sterling_vu',
-             name: 'Sterling Vu',
-             email: 'sterling.vu.goldenowl@gmail.com',
-             password: 'nhinhi',
-             password_confirmation: 'nhinhi')
+
+def get_an_avatar(name)
+  "http://api.adorable.io/avatar/400/#{name}"
+end
+
+User.create!(
+  username: 'sterling_vu',
+  name: 'Sterling Vu',
+  email: 'sterling.vu.goldenowl@gmail.com',
+  password: 'nhinhi',
+  password_confirmation: 'nhinhi'
+)
 
 49.times do |n|
-  username = Faker::Internet.user_name
   name = Faker::Name.name
-  email = "example-#{n + 1}@gmail.com"
   password = 'password'
-  User.create!(username: username,
-               name: name,
-               email: email,
-               password: password,
-               password_confirmation: password)
+  user = User.create!(
+    username: Faker::Internet.user_name,
+    name: name,
+    email: "example-avatar-#{n + 1}@gmail.com",
+    password: password,
+    password_confirmation: password
+  )
+  user.remote_avatar_url = get_an_avatar(name)
+  user.save!
 end
 
 users = User.all

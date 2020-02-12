@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MicropostsController < ApplicationController
-  before_action :user_signed_in?, only: %i[create destroy new update edit show]
-  before_action :set_micropost, only: %i[show edit update destroy check_user_micropost]
+  before_action :user_signed_in?, only: %i[create new update show]
+  before_action :set_micropost, only: %i[show destroy check_user_micropost]
   before_action :check_user_micropost, only: %i[destroy edit update]
 
   def show
@@ -21,7 +21,7 @@ class MicropostsController < ApplicationController
       redirect_to @micropost
     else
       @post_photo = @micropost.post_photos.build
-      flash[:danger] = "Content and photo can't be blank and photo size must < 5MB"
+      # flash[:danger] = "Content and photo can't be blank and photo size must < 5MB"
       render :new
     end
   end

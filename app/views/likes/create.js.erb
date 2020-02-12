@@ -1,0 +1,2 @@
+$("#micropost_like_<%= @micropost.id %>").html("<%= escape_javascript render(:partial => 'microposts/unlike', :locals => { :micropost => @micropost, like: @like }) %>");
+$("#micropost_count_like_<%= @micropost.id %>").html("<%= escape_javascript render(:partial => 'microposts/like_count', :locals => { :micropost => @micropost, like: @like }) %>");

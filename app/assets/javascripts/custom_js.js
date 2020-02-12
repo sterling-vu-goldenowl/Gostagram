@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', function(event) {
   $(window).scroll(function() {
-    if ($(document).scrollTop() > 20) {
+    if ($(document).scrollTop()) {
       $('div.header-line, div.ins-logo').hide();
       $('header').addClass('scroll-header');
     } else {

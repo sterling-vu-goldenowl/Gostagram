@@ -1,0 +1,10 @@
+/ - if micropost.likes.select { |like| like.user_id == current_user.id }
+/   = render partial: 'microposts/unlike', locals: { micropost: micropost }
+/ - else
+/   = render partial: 'microposts/like', locals: { micropost: micropost }
+
+- current_user_like = micropost.likes.find_by(user_id: current_user.id)
+- if current_user_like.present?
+  = render partial: 'microposts/unlike', locals: { micropost: micropost, like: current_user_like }
+- else
+  = render partial: 'microposts/like', locals: { micropost: micropost }

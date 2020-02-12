@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :microposts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent: :destroy
@@ -36,8 +37,15 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # def feed
+  #   following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
+  #   Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+  # end
+
   def feed
-    following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
+    # following_ids = Relationship.where(follower_id: id).pluck(:followed_id)
+    # Micropost.where(user_id: following_ids).or(Micropost.where(user_id: id))
+    following_ids = Relationship.where(follower_id: id).select(:followed_id).to_sql
     Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
