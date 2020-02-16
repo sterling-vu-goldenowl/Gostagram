@@ -9,7 +9,7 @@ gem 'ckeditor'
 
 gem 'pg_search'
 
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'jquery-rails'
 gem 'simple_form'
 
