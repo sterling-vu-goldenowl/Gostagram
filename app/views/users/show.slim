@@ -13,11 +13,10 @@
                 .user-info
                   p = @user.username
                   - if @user == current_user
-                    .edit-button
-                      = link_to 'Edit Profile', edit_user_path(@user)
+                    = render partial: 'users/edit_button', locals: { user: @user }
                   - else
                     div[id="follow_form-#{@user.id}" class="follow-button"]
-                      = render partial: 'follow_form', locals: { user: @user } if user_signed_in?
+                      = render partial: 'follow_form', locals: { user: @user }
                 .user-count
                   .user-post-count
                     .count-number = @user.microposts.count
@@ -59,15 +58,18 @@
                         - if (index + 1) % 2 == 0
                           .micropost-photo
                             = link_to micropost_path(post.id) do
-                              .padding-left-right = image_tag post.post_photos.first.photo.url
+                              .padding-left-right
+                                = render partial: 'microposts/micropost_user', locals: { post: post }
                         - elsif (index + 1) % 3 == 0
                           .micropost-photo
                             = link_to micropost_path(post.id) do
-                              .padding-left-16 = image_tag post.post_photos.first.photo.url
+                              .padding-left-16
+                                = render partial: 'microposts/micropost_user', locals: { post: post }
                         - else
                           .micropost-photo
                             = link_to micropost_path(post.id) do
-                              .padding-right-16 = image_tag post.post_photos.first.photo.url
+                              .padding-right-16
+                                = render partial: 'microposts/micropost_user', locals: { post: post }
               - else
                 .no-post-yet
                   = image_tag 'no-post.png'

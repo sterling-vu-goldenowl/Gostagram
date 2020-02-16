@@ -1,0 +1,10 @@
+- if @search_results_users.any?
+  = image_tag 'close-icon.png', class: 'close-btn'
+  - @search_results_users.each do |user|
+    .micropost-user-title
+      .micropost-user-avatar
+        = link_to user do
+          = avatar_for(user)
+          = user.username
+- else
+  | No result

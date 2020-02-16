@@ -4,6 +4,10 @@
     .row
       .col-md-10.col-md-offset-1.col-xs-12
         .edit-form-wrap
+          .banner-wrap.align-center
+            = image_tag 'banner.jpg'
+          .banner-wrap.align-center
+            | How are you today?
           .micropost-form
             = simple_nested_form_for(@micropost, html: { multipart: true }) do |f|
               .row
@@ -12,9 +16,6 @@
                 .col-md-8.form-field
                   .field
                     = f.text_area :content, placeholder: "Compose new micropost..."
-                / .col-md-8.form-field
-                /   .field
-                /     #editor= f.text_area :content, placeholder: "Compose new micropost..."
               .row
                 .col-md-3.form-label
                   div = f.label :photo
@@ -33,5 +34,3 @@
               .row
                 .col-md-8.col-md-offset-3.form-field
                   = f.submit "Post"
-/ script
-/   |  ClassicEditor.create( document.querySelector( '#editor' ) ).catch( error => { console.error( error ); } );

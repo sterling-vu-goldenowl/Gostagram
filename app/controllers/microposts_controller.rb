@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MicropostsController < ApplicationController
-  before_action :user_signed_in?, only: %i[create new update show]
-  before_action :set_micropost, only: %i[show destroy check_user_micropost]
+  before_action :user_signed_in?, only: %i[create new update show edit update]
+  before_action :set_micropost, only: %i[show destroy check_user_micropost edit update]
   before_action :check_user_micropost, only: %i[destroy edit update]
 
   def show
@@ -21,38 +21,31 @@ class MicropostsController < ApplicationController
       redirect_to @micropost
     else
       @post_photo = @micropost.post_photos.build
-      # flash[:danger] = "Content and photo can't be blank and photo size must < 5MB"
       render :new
     end
   end
 
-  # def edit; end
+  def edit; end
 
-  # def update
-  #   @micropost.assign_attributes(micropost_params)
+  def update
+    @micropost.assign_attributes(micropost_params)
 
-  #   if @micropost.save
-  #     params[:post_photos]['photo'].each do |a|
-  #       @post_photo = @micropost.post_photos.create!(photo: a)
-  #     end
-  #     redirect_to @micropost,
-  #                 notice: 'Micropost was successfully updated!'
-  #   else
-  #     flash[:danger] = @micropost.errors.full_messages
-  #     redirect_to action: :edit
-  #   end
-  # end
+    if @micropost.save
+      # params[:post_photos]['photo'].each do |a|
+      #   @post_photo = @micropost.post_photos.create!(photo: a)
+      # end
+      redirect_to @micropost,
+                  notice: 'Micropost was successfully updated!'
+    else
+      render :edit
+    end
+  end
 
-  # def destroy
-  #   @micropost.destroy
-
-  #   respond_to do |format|
-  #     format.html do
-  #       redirect_to user_path(current_user),
-  #                   notice: 'Your post was successfully deleted!'
-  #     end
-  #   end
-  # end
+  def destroy
+    @micropost.destroy
+    redirect_to user_path(current_user),
+                    notice: 'Your post was successfully deleted!'
+  end
 
   private
 
@@ -70,7 +63,7 @@ class MicropostsController < ApplicationController
   def micropost_params
     params.require(:micropost).permit(
       :content,
-      post_photos_attributes: %i[id item_id photo]
+      post_photos_attributes: %i[id item_id photo photo_cache]
     )
   end
 end

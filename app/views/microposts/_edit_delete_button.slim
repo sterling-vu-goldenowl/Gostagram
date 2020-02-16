@@ -1,0 +1,10 @@
+div[id="micropost_menu" class="menu-overlay"]
+  .overlay-content
+    = link_to  'Edit', edit_micropost_path(micropost)
+    hr
+    = link_to 'Delete', micropost_path(micropost), data: { method: :delete, confirm: "Are you sure want to delete this post?" }
+    hr
+    a.close-overlay
+      | Cancel
+
+= image_tag 'threedots-icon.png', class: 'overlay-btn'

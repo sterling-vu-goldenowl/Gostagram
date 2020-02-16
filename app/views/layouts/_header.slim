@@ -2,8 +2,8 @@ header
   .container
     .banner-wrap
       .row
-        .col-md-3.col-md-offset-1.col-xs-6
-          .left-header.align-center
+        .col-md-3.col-md-offset-1.col-xs-5
+          .left-header.align-center-flexstart
             .ins-icon
               = link_to root_path do
                 = image_tag "ins-icon.png"
@@ -11,22 +11,22 @@ header
             .ins-logo
               = link_to root_path do
                 = image_tag "instagram_logo.svg.png"
-        .col-md-3.col-md-offset-1
-
-        .col-md-3.col-xs-6
-          .right-header.align-center
+        .col-md-3.col-xs-2.align-center
+          .search-bar-wrap
+            = simple_form_for :search, url: search_path, method: :get, remote: true do |f|
+              = f.text_field :search, placeholder: 'Search'
+            #search-results
+        .col-md-3.col-md-offset-1.col-xs-5.align-center-flexend
+          .right-header.align-center-flexend
             - if user_signed_in?
-              .dropdown
-                img.dropdown-toggle data-toggle="dropdown" src="/assets/user-icon.png" /
-                ul.dropdown-menu
-                  li
-                    = link_to 'Profile', user_path(current_user.id)
-                  li
-                    = link_to 'Setting', edit_user_path(current_user.id)
-                  li
-                    = link_to 'Logout', destroy_user_session_path, method: :delete
+              - if current_page?(user_path(current_user))
+                = link_to root_path do
+                  = image_tag 'user-black.png'
+              - else
+                = link_to user_path(current_user) do
+                  = image_tag 'user-icon.png'
             - else
-              .btn-sign-in
+              .btn-sign-in.align-center
                 = link_to 'Sign in', sign_in_path
-              .btn-sign-up
+              .btn-sign-up.align-center
                 = link_to 'Sign up', new_user_registration_path

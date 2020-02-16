@@ -1,39 +1,48 @@
 - provide(:title, 'Micropost')
-.form-container
-  .micropost-show-wrap
-    .row
-      .col-md-7.no-padding-right
-        .owl-demo.owl-carousel.owl-theme
-          - @post_photos.each do |f|
-            .item = image_tag  f.photo.url
-      .col-md-5.no-padding-left
-        .micropost-description
-          .micropost-user-title
-            .micropost-user-avatar
-              = avatar_for(@micropost.user)
-              = link_to @micropost.user.username, @micropost.user
-            - unless current_user?(@micropost.user)
-              div[id="follow_form-#{@micropost.user.id}" class="follow-button"]
-                = render partial: 'users/follow_form', locals: { user: @micropost.user } if user_signed_in?
-          .micropost-content-container
-            .micropost-content
-              = avatar_for(@micropost.user)
-              = link_to @micropost.user.username, @micropost.user
-              pre = @micropost.content
-            div[id="micropost_show_comment_#{@micropost.id}" class="micropost-comment-wrap"]
-              - if @micropost.comments.any?
-                - @micropost.comments.each do |cmt|
-                  = display_comment_with_avatar(cmt)
-          .micropost-bottom
-            .micropost-like-comment
-              = image_tag  'comment-icon.png'
-            .micropost-time
-              = time_ago_in_words(@micropost.created_at)
-              |  ago.
-            .micropost-post-comment
-              = simple_form_for Comment.new, url: micropost_comments_path(@micropost), remote: true do |f|
-                .row
-                  .col-md-9.comment-field
-                    = f.input :body, label: false, placeholder: 'Add a comment…', input_html: { id: "comment_body_#{@micropost.id}" }
-                  .col-md-3.comment-submit
-                    = f.submit 'Post'
+.container
+  .row
+    .col-md-10.col-md-offset-1
+      .micropost-show-wrap
+        .row
+          .col-md-7.no-padding-right
+            .owl-demo.owl-carousel.owl-theme
+              - @post_photos.each do |f|
+                .item = image_tag f.photo.url, class: 'post-photo'
+          .col-md-5.no-padding-left
+            .micropost-description
+              .micropost-user-title
+                .micropost-user-avatar
+                  = avatar_for(@micropost.user)
+                  = link_to @micropost.user.username, @micropost.user
+                - unless current_user?(@micropost.user)
+                  div[id="follow_form-#{@micropost.user.id}" class="follow-button"]
+                    = render partial: 'users/follow_form', locals: { user: @micropost.user } if user_signed_in?
+                - if current_user?(@micropost.user)
+                  = render partial: 'microposts/edit_delete_button', locals: { micropost: @micropost } if user_signed_in?
+              .micropost-content-container
+                .micropost-content
+                  = avatar_for(@micropost.user)
+                  = link_to @micropost.user.username, @micropost.user
+                  pre = @micropost.content
+                div[id="micropost_show_comment_#{@micropost.id}" class="micropost-comment-wrap"]
+                  - if @micropost.comments.any?
+                    - @micropost.comments.each do |cmt|
+                      = display_comment_with_avatar(cmt)
+              .micropost-bottom
+                .micropost-like-comment
+                  div[id="micropost_like_#{@micropost.id}"]
+                    = render partial: 'microposts/like_form', locals: { micropost: @micropost }
+                  = image_tag  'comment-icon.png'
+                div[id="micropost_count_like_#{@micropost.id}" class="micropost-count-like"]
+                  - like = Like.find_by(micropost_id: @micropost.id)
+                  = render partial: 'microposts/like_count', locals: { micropost: @micropost, like: like  }
+                .micropost-time
+                  = time_ago_in_words(@micropost.created_at)
+                  |  ago.
+                .micropost-post-comment
+                  = simple_form_for Comment.new, url: micropost_comments_path(@micropost), remote: true do |f|
+                    .row
+                      .col-md-9.comment-field
+                        = f.input :body, label: false, placeholder: 'Add a comment…', input_html: { id: "comment_body_#{@micropost.id}" }
+                      .col-md-3.comment-submit
+                        = f.submit 'Post'

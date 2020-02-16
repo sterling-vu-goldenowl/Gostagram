@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   root 'static_pages#home'
+  get 'search', to: 'users#search'
 
   devise_scope :user do
     get '/sign_in' => 'devise/sessions#new'
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: %i[show edit update]
   resources :microposts do
+    resources :post_photos, only: :destroy
     resources :comments, only: %i[new create]
     resources :likes, only: %i[create destroy]
   end

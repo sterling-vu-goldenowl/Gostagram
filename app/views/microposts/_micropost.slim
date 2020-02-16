@@ -11,14 +11,14 @@
     = link_to  micropost_path(micropost) do
       = image_tag  'comment-icon.png'
   div[id="micropost_count_like_#{micropost.id}" class="micropost-count-like"]
-    - like = micropost.likes.find_by(user_id: current_user.id)
+    - like = Like.find_by(micropost_id: micropost.id)
     = render partial: 'microposts/like_count', locals: { micropost: micropost, like: like  }
   .micropost-content
     = micropost.user.username
     pre = micropost.content
   div[id="micropost_comment_#{micropost.id}" class="micropost-comment-wrap"]
     - if micropost.comments.count > 5
-      = link_to  "show all #{micropost.comments.count} comments", micropost_path(micropost)
+      = link_to "show all #{micropost.comments.count} comments", micropost_path(micropost)
     - micropost.comments.order(created_at: :desc).first(5).each do |cmt|
       = display_comment(micropost, cmt)
   .micropost-time

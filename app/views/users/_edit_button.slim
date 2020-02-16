@@ -1,0 +1,12 @@
+.edit-button
+  = link_to 'Edit Profile', edit_user_path(user)
+  = image_tag  'gear.png', class: 'overlay-btn'
+
+div[id="micropost_menu" class="menu-overlay"]
+  .overlay-content
+    = link_to  'Edit Profile', edit_user_path(user)
+    hr
+    = link_to 'Logout', destroy_user_session_path, method: :delete
+    hr
+    a.close-overlay
+      | Cancel

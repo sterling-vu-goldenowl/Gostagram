@@ -1,0 +1,7 @@
+.photo-wrap
+  .photo = image_tag post.post_photos.first.photo.url
+  .like-comment
+    = image_tag  'white-like.png'
+    = post.likes.count
+    = image_tag 'white-cmt.png'
+    = post.comments.count

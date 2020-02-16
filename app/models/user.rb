@@ -1,6 +1,13 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  include PgSearch::Model
+  pg_search_scope :search_user,
+                  against: :username,
+                  using: {
+                    tsearch: { prefix: true }
+                  }
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
@@ -37,16 +44,11 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
-  # def feed
-  #   following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
-  #   Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
-  # end
-
   def feed
-    # following_ids = Relationship.where(follower_id: id).pluck(:followed_id)
-    # Micropost.where(user_id: following_ids).or(Micropost.where(user_id: id))
-    following_ids = Relationship.where(follower_id: id).select(:followed_id).to_sql
-    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+    following_ids = Relationship.where(follower_id: id).pluck(:followed_id)
+    Micropost.where(user_id: following_ids).or(Micropost.where(user_id: id))
+    # following_ids = Relationship.where(follower_id: id).select(:followed_id).to_sql
+    # Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
   private

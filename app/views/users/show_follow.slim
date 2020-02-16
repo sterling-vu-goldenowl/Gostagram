@@ -6,22 +6,31 @@
         .main-form.padding-bottom
           .row
             .col-md-12.col-xs-12
-            - if @users.any?
-              .follow-title
-                = @title
-              - @users.each do |user|
-                .row.user-follow-wrap
-                  .col-md-1.col-md-offset-1
-                    .follow-avatar
-                      = avatar_for(user)
-                  .col-md-7
-                    .follow-username
-                      = link_to user.username, user_path(user)
-                  .col-md-3
-                    - unless current_user?(user)
-                      div[id="follow_form-#{user.id}"]
-                        = render partial: 'follow_form', locals: { user: user }
-            - else
-              .follow-title
-                | No &nbsp
-                = @title
+              - if @users.any?
+                .title-wrap
+                  .link-back
+                    = link_to :back do
+                      = image_tag  'arrow-icon.png'
+                  .follow-title
+                    = @title
+                - @users.each do |user|
+                  .row
+                    .col-md-12
+                      .user-follow-wrap
+                        .col-md-1.col-md-offset-1
+                          .follow-avatar
+                            = avatar_for(user)
+                        .col-md-7
+                          .follow-username
+                            = link_to user.username, user_path(user)
+                        .col-md-2
+                          - unless current_user?(user)
+                            div[id="follow_form-#{user.id}"]
+                              = render partial: 'follow_form', locals: { user: user }
+                .row
+                  .col-md-11.col-md-offset-1
+                    = will_paginate
+              - else
+                .follow-title
+                  | No &nbsp
+                  = @title

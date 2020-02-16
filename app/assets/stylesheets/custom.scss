@@ -54,6 +54,10 @@ ul li {
   margin-top: 10px;
 }
 
+.alert {
+  z-index: -1;
+}
+
 .no-margin {
   margin: 0 !important;
 }
@@ -90,6 +94,19 @@ ul li {
 .align-center {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.align-center-flexend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.align-center-flexstart {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 abbr[title] {
@@ -133,6 +150,7 @@ textarea {
 
 header {
   width: 100%;
+  z-index: 2;
   top: 0;
   position: -webkit-sticky;
   position: sticky;
@@ -141,66 +159,106 @@ header {
   padding-bottom: 17px;
   border: 1px solid $border-color;
   transition: 0.4s;
-  .banner-wrap {
-    width: 100%;
-    .left-header {
-      .ins-icon img {
-        width: 25px;
-        height: 25px;
-        margin-right: 10px;
-      }
-      .header-line {
-        background-color: #000;
-        width: 1px;
-        height: 30px;
-        margin-right: 10px;
-      }
-      .ins-logo img {
-        height: 40px;
+  max-height: 76px;
+
+  .left-header {
+
+    .ins-icon img {
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+    }
+
+    .header-line {
+      background-color: #000;
+      width: 1px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .ins-logo img {
+      height: 40px;
+    }
+  }
+
+  .right-header {
+
+    img {
+      width: 25px;
+      height: 25px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .btn-sign-in {
+      background-color: #38A7F6;
+      border-radius: 2px;
+      height: 30px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-right: 30px;
+
+      a {
+      color: #fff;
+      font-weight: 700;
+      font-style: normal;
       }
     }
-    .right-header {
-      float: right;
-      vertical-align: middle;
-      img {
-        width: 25px;
-        height: 25px;
+
+    .btn-sign-up {
+      height: 30px;
+      a {
+      color: #38A7F6;
+      font-weight: 700;
+      font-style: normal;
       }
-      &:hover {
-        cursor: pointer;
-      }
-      .btn-sign-in {
-        background-color: #38A7F6;
-        border-radius: 2px;
-        height: 30px;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        padding-left: 10px;
-        padding-right: 10px;
-        margin-right: 30px;
-        a {
-        color: #fff;
-        font-weight: 700;
-        }
-      }
-      .btn-sign-up {
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        a {
-        color: #38A7F6;
-        font-weight: 700;
+    }
+  }
+}
+
+.banner-wrap {
+  width: 100%;
+  font-style: italic;
+  font-size: 22px;
+}
+
+.search-bar-wrap {
+
+  #search-results {
+    position: absolute;
+    top: 100%;
+    z-index: 100000;
+    background-color: #fff;
+    max-height: 200px;
+    min-width: 250px;
+    max-width: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .micropost-user-avatar {
+      margin: 5px;
+      white-space: nowrap;
+
+      a {
+        font-size: 13px;
+        font-style: normal;
+        margin-left: 5px;
+        img {
+          margin-right: 5px;
         }
       }
     }
   }
 }
 
-.dropdown-menu {
-  li a {
-    font-size: 16px;
+.close-btn {
+  width: 15px;
+  height: 15px;
+  float: right;
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -209,6 +267,7 @@ header {
   padding-bottom: 13px;
   transition: 0.4s;
   z-index: 2;
+  max-height: 56px;
 }
 
 /* form for login, signup */
@@ -220,7 +279,7 @@ header {
   margin-top: 30px;
 }
 
-.form-wrap, .main-form, .micropost-show-wrap {
+.form-wrap, .main-form {
   background-color: #fff;
   border: 1px solid $border-color;
   border-radius: 2px;
@@ -242,9 +301,11 @@ header {
   align-items: center;
   flex-direction: column;
   margin-top: 20px;
+
   img {
     width: 50%;
   }
+
   p {
     padding-left: 20%;
     padding-right: 20%;
@@ -263,6 +324,7 @@ header {
   width: 100%;
   display: flex;
   justify-content: center;
+
   input[type=email], input[type=password], input[type=text] {
     width: 80%;
     margin-top: 5px !important;
@@ -271,6 +333,7 @@ header {
     background-color: $bg-color;
     border-radius: 2px;
   }
+
   .field_with_errors {
     width: 100%;
     display: flex;
@@ -287,6 +350,7 @@ input:-internal-autofill-selected {
   display: flex;
   justify-content: center;
   margin: 15px 10%;
+
   .gray-line {
     width: 100%;
     background-color: $border-color;
@@ -294,6 +358,7 @@ input:-internal-autofill-selected {
     position: relative;
     margin-top: 10px;
   }
+
   .gray-text, .gray-policy {
     color: $gray-line-color;
     margin-left: 10px;
@@ -301,6 +366,7 @@ input:-internal-autofill-selected {
     text-align: center;
     font-size: 15px;
   }
+
   .gray-policy {
     padding: 0 10%;
   }
@@ -313,6 +379,7 @@ input:-internal-autofill-selected {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   a {
     margin-top: 10px;
     font-size: 12px !important;
@@ -326,9 +393,11 @@ input:-internal-autofill-selected {
   align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
+
   p {
     margin: 0;
   }
+
   a {
     color: #38A7F6;
     font-weight: 700;
@@ -354,6 +423,7 @@ input:-internal-autofill-selected {
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+
   img {
     border-radius: 50%;
     border: 3px solid #000;
@@ -361,10 +431,12 @@ input:-internal-autofill-selected {
     max-width: 100px;
     max-height: 100px;
   }
+
   b {
     font-size: 18px;
     margin-top: 10px;
   }
+
   p {
     color: $gray-line-color;
     margin: 10px 10%;
@@ -374,6 +446,7 @@ input:-internal-autofill-selected {
 
 .create-acc-link {
   text-align: center;
+
   a {
     font-weight: 700;
     color: #000;
@@ -390,6 +463,7 @@ input:-internal-autofill-selected {
   align-items: center;
   border: 1px solid $border-color;
   background-color: $bg-color;
+
   a {
     color: #000;
     font-weight: 700;
@@ -413,29 +487,34 @@ input:-internal-autofill-selected {
   border-radius: 2px;
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }
 
 #edit-left-menu {
   padding: 0;
+
   .edit-tab {
     height: 60px;
     display: flex;
     align-items: center;
+
     &:hover {
       background-color: $bg-color;
       border-left: 2px solid $border-color;
     }
+
     a {
       color: #000;
       font-size: 16px;
       margin-left: 30px;
     }
   }
+
   .active {
     background-color: #fff;
     border-left: 2px solid #000;
     font-weight: 700;
+
     &:hover {
       background-color: #fff;
       border-left: 2px solid #000;
@@ -447,13 +526,16 @@ input:-internal-autofill-selected {
   padding-top: 30px;
   padding-bottom: 30px;
   border-left: 1px solid $border-color;
+
   .edit-avatar {
+
     img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
     }
   }
+
   &.edit-password {
     display: none;
   }
@@ -478,22 +560,27 @@ label {
   padding-right: 25px;
   min-height: 51px;
   height: auto;
+
   div {
     margin: 0;
   }
+
   a {
     font-size: 14px;
     font-weight: 700;
     color: $button-color;
     margin: 0;
   }
+
   input[type=submit] {
     width: 80px !important;
   }
+
   .inputfile {
     background-color: #fff;
     color: $button-color;
   }
+
   .field {
     input[type=email], input[type=password], input[type=text] {
       background-color: #fff;
@@ -520,6 +607,7 @@ label {
 }
 
 .avatar-wrap {
+
   img {
     border-radius: 50%;
     width: 150px;
@@ -532,29 +620,34 @@ label {
 }
 
 .user-info-wrap {
+
   .user-info {
     display: flex;
     align-items: center;
+
     p, .edit-button {
       margin-left: 10px;
       margin-right: 10px;
     }
+
     p {
       font-size: 30px;
       margin: 0 !important;
     }
+
     .edit-button {
+
       a {
         border: 1px solid $border-color;
         font-weight: 700;
         color: #000;
         padding: 6px;
         border-radius: 3px;
-        display: inline-block;
         margin-left: 4px;
         margin-right: 4px;
         font-size: 15px;
       }
+
       img {
         width: 23px;
         height: 23px;
@@ -566,23 +659,28 @@ label {
     align-items: center;
     margin-top: 20px;
     margin-bottom: 20px;
+
     .user-post-count, .user-followers, .user-following {
       font-size: 16px;
       margin-right: 30px;
       display: flex;
+
       a {
         color: #000;
       }
     }
+
     .count-number {
       font-weight: 700;
       margin-right: 5px;
     }
   }
+
   .user-decription {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     .user-name {
       font-size: 18px;
       font-weight: 700;
@@ -596,25 +694,30 @@ label {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+
   .post-navbar {
     width: 100%;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+
     .post-tab {
       margin: 30px;
       display: flex;
       align-items: center;
+
       img {
         width: 13px;
         height: 13px;
       }
+
       p {
         font-size: 13px;
         color: #7A7A7A;
         font-weight: 700;
       }
+
       a, img, p {
         margin: 5px;
       }
@@ -624,11 +727,13 @@ label {
 
 .no-post-yet {
   width: 100%;
+
   img {
     margin-left: auto;
     margin-right: auto;
     display: block;
   }
+
   p {
     font-size: 22px;
     text-align: center;
@@ -636,23 +741,65 @@ label {
 }
 .user-micropost-wrap {
   margin-bottom: 50px;
-  .user-microposts {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: row;
-    padding-top: 24px;
-    .micropost-photo {
-      width: 33.33%;
-      a {
-        width: 100%;
-        img {
-          width: 100%;
-          height: 300px;
-          object-fit: cover;
-        }
-      }
+}
+
+.user-microposts {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding-top: 24px;
+
+  .micropost-photo {
+    width: 33.33%;
+
+    a {
+      width: 100%;
+      color: #000;
     }
+  }
+}
+
+.photo-wrap {
+  position: relative;
+
+  .photo {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    transition: 0.3s ease;
+    backface-visibility: hidden;
+    background-color: #000;
+
+    img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+  }
+  .like-comment {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    color: #fff;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    margin: 5px;
+
+    img {
+      width: 30px;
+      margin: 5px;
+      color: #fff;
+    }
+  }
+
+  &:hover img {
+    opacity: 0.5;
+  }
+
+  &:hover .like-comment {
+    opacity: 1;
   }
 }
 
@@ -663,19 +810,15 @@ label {
   margin-top: 20px;
 }
 
-/* micropost form */
+/* micropost new form */
 
 .row-wrap {
   display: flex;
   align-items: center;
+
   .field {
     justify-content: flex-start;
   }
-}
-
-.micropost-show-wrap {
-  max-width: 920px;
-  margin-bottom: 50px;
 }
 
 .link-to-remove, .link-to-add {
@@ -686,6 +829,7 @@ label {
   justify-content: center;
   align-items: center;
   margin-bottom: 10px !important;
+
   a {
     color: #000 !important;
     padding-left: 10px;
@@ -695,22 +839,43 @@ label {
 
 .micropost-form {
   padding: 40px;
+
   .form-field {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+
     .field {
       margin-top: 10px;
       margin-bottom: 10px;
     }
   }
+
   input[type=submit] {
     width: 70px;
   }
+
   input[type=file] {
     font-size: 16px;
   }
+}
+
+/* micropost edit form */
+
+.preview img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  padding: 2px;
+}
+
+/* show micropost */
+
+.micropost-show-wrap {
+  width: 100%;
+  margin-bottom: 50px;
+  margin-top: 30px;
 }
 
 .micropost-user-title {
@@ -722,21 +887,88 @@ label {
 
 .micropost-user-avatar {
   margin: 20px;
+
   img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
   }
+
   a {
     color: #000;
     font-weight: 700;
-    margin-left: 20px;
     font-size: 16px;
+    margin-left: 20px;
   }
 }
 
+.overlay-btn {
+  width: 20px;
+
+  img {
+    width: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.menu-overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  background-color: #fff;
+  top: 50%;
+  width: 300px;
+  text-align: center;
+  margin-top: 30px;
+  border-radius: 5%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  left: 50%;
+
+  hr {
+    margin: 0;
+  }
+}
+
+.menu-overlay a {
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  color: #000;
+  transition: 0.3s;
+  padding: 10px;
+}
+
+.menu-overlay a:hover, .menu-overlay a:focus {
+  color: #f1f1f1;
+}
+
+// @media screen and (max-height: 450px) {
+//   .overlay a {font-size: 20px}
+//   .overlay .closebtn {
+//   font-size: 40px;
+//   top: 15px;
+//   right: 35px;
+//   }
+// }
+
 .micropost-picture-wrap {
+
   img {
     width: 100%;
     height: auto;
@@ -745,11 +977,14 @@ label {
 
 .micropost-description {
   height: 100%;
+  position: relative;
+  border: 1px solid $border-color;
 }
 
 .micropost-like-comment {
   margin: 20px;
   display: flex;
+
   img {
     margin-left: 10px;
     margin-right: 10px;
@@ -759,8 +994,15 @@ label {
 }
 
 .micropost-count-like {
+  display: flex;
   margin-left: 30px;
   font-weight: 700;
+
+  .liked-user-name, .liked-count {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
   p {
     font-weight: normal;
   }
@@ -768,7 +1010,21 @@ label {
 
 .micropost-content-container {
   overflow: auto;
-  height: 50%;
+
+  .micropost-content {
+    margin: 10px 20px;
+  }
+
+  .micropost-comment-wrap {
+    margin: 0;
+
+    a {
+
+      &:hover {
+        color: #000 !important;
+      }
+    }
+  }
 }
 
 .micropost-content {
@@ -777,18 +1033,22 @@ label {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 10px 30px;
+
   img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    object-fit: cover;
   }
+
   a {
     color: #000 !important;
     font-weight: 700;
     margin-left: 20px;
     font-size: 16px;
   }
+
   pre {
     font-weight: normal;
     max-width: 100%;
@@ -799,26 +1059,25 @@ label {
 
 .micropost-bottom {
   width: 100%;
-  max-height: 180px;
+  height: 168px;
   position: absolute;
   bottom: 0;
   border-top: 1px solid $border-color;
-  border-left: 1px solid $border-color;
+
+  .micropost-like-comment {
+    margin: 10px 20px;
+  }
 }
 
 .micropost-time {
-  margin: 20px;
+  margin: 10px 30px;
   font-size: 15px;
   color: $gray-line-color;
 }
 
-.owl-carousel {
-  display: block;
-}
-
-.owl-demo .item img{
-  width: 100%;
+.owl-demo, .owl-carousel, .item, .item img {
   height: 100%;
+  width: 100%;
 }
 
 .owl-item {
@@ -833,31 +1092,49 @@ label {
   align-items: center;
   justify-content: center;
   margin-left: 10px;
+
   input[type=submit] {
     width: auto;
+    margin: 0;
   }
 }
 
 .btn-unfollow {
+
   input[type=submit] {
     background-color: #fff;
     color: #000;
     border: 1px solid $border-color;
+    margin: 0;
   }
 }
 
 /* show follow page */
 
-.follow-title {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
+.title-wrap {
   margin-top: 30px;
   margin-bottom: 30px;
+  position: relative;
   width: 100%;
+
+  .follow-title {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .link-back {
+    position: absolute;
+    left: 80px;
+
+    img {
+      width: 30px;
+    }
+  }
 }
 
 .follow-avatar {
+
   img {
     width: 50px;
     height: 50px;
@@ -871,6 +1148,7 @@ label {
   align-items: center;
   font-size: 17px;
   font-weight: 700;
+
   a {
     color: #000;
   }
@@ -879,8 +1157,14 @@ label {
 .user-follow-wrap {
   display: flex;
   align-items: center;
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 100%;
+
+  input[type=submit] {
+    margin-top: 0;
+    width: 100%;
+  }
 }
 
 /* comment form */
@@ -890,6 +1174,7 @@ label {
 }
 
 .comment-field {
+
   textarea {
     min-height: 100% !important;
     max-height: 100% !important;
@@ -904,9 +1189,11 @@ label {
 }
 
 .comment-submit {
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   input[type=submit] {
     margin-top: 0;
     color: #3897F0;
@@ -919,10 +1206,11 @@ label {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  // height: 300px;
+  margin: 20px 30px;
+
   a {
     color: #1F3B97;
-    margin-left: 20px;
+
     &:hover {
       color: #1F3B97 !important;
     }
@@ -932,15 +1220,20 @@ label {
     flex-direction: row;
     align-items: center;
     margin-top: 10px;
+
     .micropost-user-avatar {
       margin: 0;
+
       a {
         color: #000 !important;
+        margin: 0 !important;
+
         &:hover {
           color: #000;
         }
       }
     }
+
     .comment-body {
       font-size: 15px;
       margin-left: 10px;
