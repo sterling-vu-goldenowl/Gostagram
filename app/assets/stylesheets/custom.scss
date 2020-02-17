@@ -253,10 +253,15 @@ header {
   }
 }
 
-.close-btn {
+#close-btn {
   width: 15px;
   height: 15px;
   float: right;
+
+  img {
+    width: 100%;
+  }
+
   &:hover {
     cursor: pointer;
   }
@@ -1013,6 +1018,27 @@ label {
 
   .micropost-content {
     margin: 10px 20px;
+    position: relative;
+
+    .delete-comment {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: none;
+      width: 15px;
+
+      img {
+        width: 100% !important;
+      }
+    }
+
+    &:hover + .delete-comment {
+      display: block;
+    }
+
+    .micropost-time {
+      display: block;
+    }
   }
 
   .micropost-comment-wrap {

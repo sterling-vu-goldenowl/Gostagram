@@ -10,9 +10,14 @@ document.addEventListener('turbolinks:load', function(event) {
     }
   });
 
-  $('img.close-btn').on('click', function(e) {
+  $('#close-btn').on('click', function(e) {
     e.preventDefault();
     $('#search-results').hide();
+  });
+
+  $('.search-bar-wrap').on('click', function(e) {
+    e.preventDefault();
+    $('#search-results').show();
   });
 
   $('.post-photo').on('load', function() {

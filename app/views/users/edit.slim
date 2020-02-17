@@ -18,7 +18,7 @@
                     .col-md-4.col-xs-6.form-label
                       .edit-avatar
                         = avatar_for(@user)
-                    .col-md-7.col-xs-6.form-field.align-center-flexstart
+                    .col-md-7.col-xs-6.form-field
                       div = @user.username
                       = f.file_field :avatar, accept: 'image/jpeg, image/gif, image/png', class: "inputfile"
                   .row

@@ -1,3 +1,27 @@
 - if @feed_items.any?
   = render @feed_items.order(created_at: :desc)
   = will_paginate(@feed_items)
+- else
+  .main-form.padding-bottom
+    .row
+      .col-md-12.col-xs-12
+        .title-wrap
+          .follow-title
+            | Follow your friend to see what they do everday
+        - @users.each do |user|
+          .row
+            .col-md-12
+              .user-follow-wrap
+                .col-md-1.col-md-offset-1
+                  .follow-avatar
+                    = avatar_for(user)
+                .col-md-7
+                  .follow-username
+                    = link_to user.username, user_path(user)
+                .col-md-2
+                  - unless current_user?(user)
+                    div[id="follow_form-#{user.id}"]
+                      = render partial: 'users/follow_form', locals: { user: user }
+        .row
+          .col-md-11.col-md-offset-1
+            = will_paginate(@users)

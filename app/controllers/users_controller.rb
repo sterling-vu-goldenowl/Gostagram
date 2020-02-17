@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   include ApplicationHelper
 
-  before_action :set_user, only: %i[show edit update update_password correct_user following followers valid_user?]
+  before_action :set_user, only: %i[show edit update correct_user following followers valid_user?]
   before_action :user_signed_in?, only: %i[edit update show following followers]
   before_action :valid_user?, only: %i[edit update]
   before_action :check_current_password, only: :update_password
@@ -26,20 +26,24 @@ class UsersController < ApplicationController
   def update
     @user.assign_attributes(user_params)
     if @user.save
-      redirect_to @user, notice: 'Profile updated'
+      if params[:current_password] && @error_password == false
+        redirect_to sign_in_path, notice: 'Please signin again'
+      else
+        redirect_to @user
+      end
     else
       render :edit
     end
   end
 
-  def update_password
-    @user.assign_attributes(user_params)
-    if @user.save
-      redirect_to sign_in_path, notice: 'Your password was changed successfully. You are now signed in.'
-    else
-      render :edit
-    end
-  end
+  # def update_password
+  #   @user.assign_attributes(user_params)
+  #   if @user.save
+  #     redirect_to sign_in_path, notice: 'Your password was changed successfully. You are now signed in.'
+  #   else
+  #     render :edit
+  #   end
+  # end
 
   def following
     @title = 'Following'
