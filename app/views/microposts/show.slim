@@ -32,7 +32,7 @@
                 .micropost-like-comment
                   div[id="micropost_like_#{@micropost.id}"]
                     = render partial: 'microposts/like_form', locals: { micropost: @micropost }
-                  = image_tag  'comment-icon.png'
+                  = image_tag 'comment-icon.png'
                 div[id="micropost_count_like_#{@micropost.id}" class="micropost-count-like"]
                   - like = Like.find_by(micropost_id: @micropost.id)
                   = render partial: 'microposts/like_count', locals: { micropost: @micropost, like: like  }

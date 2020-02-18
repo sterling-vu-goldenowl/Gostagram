@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dighuh3hs
+  api_key: '243132698587892'
+  api_secret: stZeckNFx1OCTpFyhjFdHmXFXQ8
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: dighuh3hs
+  api_key: '243132698587892'
+  api_secret: stZeckNFx1OCTpFyhjFdHmXFXQ8
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: dighuh3hs
+  api_key: '243132698587892'
+  api_secret: stZeckNFx1OCTpFyhjFdHmXFXQ8
+  enhance_image_tag: true
+  static_file_support: false

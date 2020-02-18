@@ -22,6 +22,7 @@
                 .col-md-8.form-field.photos
                   = f.simple_fields_for :post_photos, @post_photo do |p|
                     .field
+                      = p.hidden_field :photo_cache
                       = p.file_field :photo
                       .link-to-remove= p.link_to_remove 'Delete'
               .row

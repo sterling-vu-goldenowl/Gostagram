@@ -19,6 +19,8 @@
 
 //= require jquery_nested_form
 
+//= require cloudinary
+
 //= require owl.carousel
 
 //= require custom_js

@@ -61,7 +61,7 @@ class MicropostsController < ApplicationController
   def micropost_params
     params.require(:micropost).permit(
       :content,
-      post_photos_attributes: %i[id photo _destroy]
+      post_photos_attributes: %i[id photo photo_cache _destroy]
     )
   end
 end

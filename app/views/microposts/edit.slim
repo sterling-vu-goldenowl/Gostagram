@@ -21,6 +21,7 @@
                       .micropost-photo
                         = image_tag p.object.photo.url, width: '100px'
                     .field
+                      = p.hidden_field :photo_cache
                       = p.file_field :photo
                       .link-to-remove= p.link_to_remove 'Delete'
               .row
