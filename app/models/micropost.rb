@@ -5,11 +5,12 @@ class Micropost < ApplicationRecord
   has_many :post_photos, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  accepts_nested_attributes_for :post_photos,
-                                reject_if: proc { |attributes| attributes['photo'].blank? },
-                                allow_destroy: true
 
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 65_550 }
   validates :post_photos, presence: true
+
+  accepts_nested_attributes_for :post_photos,
+                                reject_if: proc { |attributes| attributes['photo'].blank? },
+                                allow_destroy: true
 end

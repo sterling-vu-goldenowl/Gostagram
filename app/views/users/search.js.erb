@@ -1,2 +1,7 @@
-//var html = <%= j( render partial: 'results' ) %>
-$("#search-results").html("<%= escape_javascript(render partial: 'results') %>");
+$('#search-results').html("<%= escape_javascript(render partial: 'results') %>");
+$('#search-results').show();
+
+$('.close-btn').on('click', function() {
+  $('#search-results').hide();
+  $('#search_search').val('');
+});

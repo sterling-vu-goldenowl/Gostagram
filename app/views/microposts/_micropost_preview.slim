@@ -1,5 +1,0 @@
-- if @micropost.post_photos.any?
-  - @micropost.post_photos.each do |photo|
-    .micropost-photo
-      = image_tag photo.photo.url
-      = link_to  "delete photo", micropost_post_photo_path(@micropost.id, photo.id), data: { method: :delete, confirm: "Are you sure want to delete this photo?" }

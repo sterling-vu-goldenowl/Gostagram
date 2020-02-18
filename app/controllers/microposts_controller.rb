@@ -31,9 +31,6 @@ class MicropostsController < ApplicationController
     @micropost.assign_attributes(micropost_params)
 
     if @micropost.save
-      # params[:post_photos]['photo'].each do |a|
-      #   @post_photo = @micropost.post_photos.create!(photo: a)
-      # end
       redirect_to @micropost,
                   notice: 'Micropost was successfully updated!'
     else
@@ -63,7 +60,7 @@ class MicropostsController < ApplicationController
   def micropost_params
     params.require(:micropost).permit(
       :content,
-      post_photos_attributes: %i[id item_id photo photo_cache]
+      post_photos_attributes: %i[id photo _destroy]
     )
   end
 end

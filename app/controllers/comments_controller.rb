@@ -11,6 +11,22 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+
+    respond_to do |format|
+      format.html { redirect_to @micropost, notice: 'Your comment was successfully deleted' }
+      format.js { render layout: false }
+    end
+  end
+
+  def show_menu
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
   private
 
   def set_micropost

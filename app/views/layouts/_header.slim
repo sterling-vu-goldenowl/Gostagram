@@ -12,10 +12,11 @@ header
               = link_to root_path do
                 = image_tag "instagram_logo.svg.png"
         .col-md-3.col-xs-2.align-center
-          .search-bar-wrap
-            = simple_form_for :search, url: search_path, method: :get, remote: true do |f|
-              = f.text_field :search, placeholder: 'Search'
-            #search-results
+          - if user_signed_in?
+            .search-bar-wrap
+              = simple_form_for :search, url: search_path, method: :get, remote: true do |f|
+                = f.text_field :search, placeholder: 'Search'
+              #search-results
         .col-md-3.col-md-offset-1.col-xs-5.align-center-flexend
           .right-header.align-center-flexend
             - if user_signed_in?

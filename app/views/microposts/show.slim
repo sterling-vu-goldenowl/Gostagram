@@ -27,7 +27,7 @@
                 div[id="micropost_show_comment_#{@micropost.id}" class="micropost-comment-wrap"]
                   - if @micropost.comments.any?
                     - @micropost.comments.each do |cmt|
-                      = display_comment_with_avatar(cmt)
+                      = display_comment_with_avatar(cmt, current_user)
               .micropost-bottom
                 .micropost-like-comment
                   div[id="micropost_like_#{@micropost.id}"]
