@@ -35,7 +35,7 @@ pre {
 }
 
 input {
-  margin: 0;
+  margin: 0 !important;
 }
 
 a:hover {
@@ -892,6 +892,7 @@ label {
 
 .micropost-user-avatar {
   margin: 20px;
+  position: relative;
 
   img {
     width: 40px;
@@ -910,6 +911,8 @@ label {
 
 .overlay-btn {
   width: 20px;
+  position: absolute;
+  right: 20px;
 
   img {
     width: 100%;

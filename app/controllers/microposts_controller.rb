@@ -21,7 +21,8 @@ class MicropostsController < ApplicationController
       redirect_to @micropost
     else
       @post_photo = @micropost.post_photos.build
-      render :new
+      redirect_to action: :new
+      flash[:danger] = "Content and photo can't be blank and photo must < 5MB."
     end
   end
 
@@ -41,7 +42,7 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     redirect_to user_path(current_user),
-                    notice: 'Your post was successfully deleted!'
+                notice: 'Your post was successfully deleted!'
   end
 
   private
