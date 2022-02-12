@@ -179,7 +179,8 @@ GEM
       activerecord (>= 5.2)
       activesupport (>= 5.2)
     public_suffix (4.0.3)
-    puma (3.12.2)
+    puma (4.3.11)
+      nio4r (~> 2.0)
     rack (2.1.1)
     rack-protection (2.0.8.1)
       rack
@@ -351,7 +352,7 @@ DEPENDENCIES
   owlcarousel-rails
   pg (>= 0.18, < 2.0)
   pg_search
-  puma (~> 3.11)
+  puma (~> 4.3)
   rails (~> 5.2.4)
   rails-controller-testing
   rmagick
